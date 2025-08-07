@@ -8,7 +8,7 @@ import { userAuth } from "./middlewate";
 import cors from 'cors';
 
 
-mongoose.connect("mongodb+srv://admin:wPbJ5yguOgiJCzh8@cluster0.ttdceue.mongodb.net/brainly")
+mongoose.connect("mongodb+srv://ngodb.net/brainly")
 console.log("mongo connected")
 
 const app = express();
