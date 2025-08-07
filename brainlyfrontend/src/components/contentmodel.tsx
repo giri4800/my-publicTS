@@ -1,6 +1,9 @@
+import axios from "axios";
 import { Button } from "./ui/button";
 import { CrossIcon } from "./ui/crossicon";
 import { Input } from "./ui/input";
+import { useRef } from "react";
+import { BACKEND_URL } from "./config";
 
 interface ContextModelProps {
   open: boolean;
@@ -8,6 +11,9 @@ interface ContextModelProps {
 }
 
 export function ContextModel({ open, onClose }: ContextModelProps) {
+  const titleref = useRef<HTMLInputElement>(null) 
+  const linktef = useRef<HTMLInputElement>(null) 
+  const typeref = useRef<HTMLInputElement>(null) 
   if (!open) return null;
 
   return (
@@ -24,10 +30,31 @@ export function ContextModel({ open, onClose }: ContextModelProps) {
 
         {/* Form content */}
         <div className="flex flex-col space-y-4 mt-6 ">
-          <Input placeholder="Title" />
-          <Input placeholder="Link" />
-          <Input placeholder="Type" />
-          <Button varient="primary" title="submit" onClick={()=>{}}/>
+          <Input reference={titleref} placeholder="Title" />
+          <Input reference={linktef} placeholder="Link" />
+          <Input reference={typeref} placeholder="Type" />
+          <Button varient="primary" title="submit" onClick={async()=>{
+            console.log( localStorage.getItem("auth"),titleref.current?.value,
+               linktef.current?.value,
+              typeref.current?.value,)
+           await axios.post(`${BACKEND_URL}contents`, {
+              "auth": localStorage.getItem("auth"),
+              "title": titleref.current?.value,
+              "link": linktef.current?.value,
+              "type": typeref.current?.value,
+            },{
+              headers:{
+                auth: localStorage.getItem("auth")
+              }
+            }
+          
+          
+          
+          )
+
+
+
+          }}/>
         </div>
       </div>
     </div>

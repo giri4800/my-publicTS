@@ -1,20 +1,29 @@
 import { useRef } from "react";
 import { Input } from "./ui/input";
+import { BACKEND_URL } from "../components/config";
 import { Button } from "./ui/button";
-import { Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
+
+import axios from "axios";
+
 
 export function Signup(){
     const usernameRef = useRef<HTMLInputElement>(null) 
     const passwordRef = useRef<any>(null) 
     const navigate= useNavigate();
-      const handleClick = () => {
+      const  handleClick = async () => {
 
         
          if (usernameRef.current && passwordRef.current){
             const username = usernameRef.current.value;
             const password = passwordRef.current.value;
+            await axios.post(`${BACKEND_URL}signup`,{
+              username,
+              password
+            })
+            alert("you are signed up")
             navigate("/signin")
-    console.log(usernameRef.current.value,passwordRef.current.value)
+
   }};
     
 return (

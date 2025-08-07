@@ -5,12 +5,15 @@ import jwt from 'jsonwebtoken';
 import { JsonWebTokenError } from "jsonwebtoken";
 import { JWTSECRET } from "./config";
 import { userAuth } from "./middlewate";
+import cors from 'cors';
+
 
 mongoose.connect("mongodb+srv://admin:wPbJ5yguOgiJCzh8@cluster0.ttdceue.mongodb.net/brainly")
 console.log("mongo connected")
 
 const app = express();
 app.use(express.json())
+app.use(cors());
 
 app.post("/signup",async (req,res)=>{
     const username = req.body.username;
